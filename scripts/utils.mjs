@@ -43,4 +43,25 @@ export async function loadHeaderFooterNavLatLonForm() {
     renderUsingTemplate(navContent, nav);
     renderUsingTemplate(latLonContent, latlonContainer);
     renderUsingTemplate(footerContent, footer);
+
+    // Set the ModAndYear after all this has ran
+    setModAndYear();
+}
+
+// Function used to add the current year and last modified date to the footer of the page
+export function setModAndYear() {
+    // Create a new date object to use
+    const date = new Date();
+    const copyrightyear = date.getFullYear();
+
+    // Get the document last modified date
+    const modDate = document.lastModified;
+
+    // Get the parent elements
+    const copyright = document.getElementById("copyright");
+    const modified = document.getElementById("lastmodified");
+
+    // Now set their text content to be the text we got
+    copyright.textContent = copyrightyear;
+    modified.textContent = modDate;
 }
