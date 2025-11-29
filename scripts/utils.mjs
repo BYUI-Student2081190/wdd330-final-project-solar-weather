@@ -41,11 +41,11 @@ function setEventHandlers() {
 
         // If darkmode is active change the picture in the button
         if (document.body.classList.contains("darkmode")) {
-            img.setAttribute("src", "images/moon-fill.svg");
+            img.setAttribute("src", "wdd330-final-project-solar-weather/images/moon-fill.svg");
             img.setAttribute("alt", "Dark Mode Icon");
             darkmode.setAttribute("aria-label", "Toggle Darkmode Off");
         } else {
-            img.setAttribute("src", "images/moon.svg");
+            img.setAttribute("src", "wdd330-final-project-solar-weather/images/moon.svg");
             img.setAttribute("alt", "Light Mode Icon");
             darkmode.setAttribute("aria-label", "Toggle Darkmode On");
         };
@@ -161,10 +161,10 @@ export function removeAllAlerts() {
 // Function to create the header, footer, nav, and lat lon form dynamically
 export async function loadHeaderFooterNavLatLonForm() {
     // Render the templates
-    const headerContent = await loadTemplate('partials/header.html');
-    const navContent = await loadTemplate('partials/nav.html');
-    const latLonContent = await loadTemplate('partials/latlonform.html');
-    const footerContent = await loadTemplate('partials/footer.html');
+    const headerContent = await loadTemplate('wdd330-final-project-solar-weather/partials/header.html');
+    const navContent = await loadTemplate('wdd330-final-project-solar-weather/partials/nav.html');
+    const latLonContent = await loadTemplate('wdd330-final-project-solar-weather/partials/latlonform.html');
+    const footerContent = await loadTemplate('wdd330-final-project-solar-weather/partials/footer.html');
 
     // Get the parent elements
     const header = document.getElementById("siteHeader");
