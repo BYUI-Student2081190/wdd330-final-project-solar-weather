@@ -41,11 +41,11 @@ function setEventHandlers() {
 
         // If darkmode is active change the picture in the button
         if (document.body.classList.contains("darkmode")) {
-            img.setAttribute("src", "/images/moon-fill.svg");
+            img.setAttribute("src", "images/moon-fill.svg");
             img.setAttribute("alt", "Dark Mode Icon");
             darkmode.setAttribute("aria-label", "Toggle Darkmode Off");
         } else {
-            img.setAttribute("src", "/images/moon.svg");
+            img.setAttribute("src", "images/moon.svg");
             img.setAttribute("alt", "Light Mode Icon");
             darkmode.setAttribute("aria-label", "Toggle Darkmode On");
         };
