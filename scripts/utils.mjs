@@ -161,10 +161,10 @@ export function removeAllAlerts() {
 // Function to create the header, footer, nav, and lat lon form dynamically
 export async function loadHeaderFooterNavLatLonForm() {
     // Render the templates
-    const headerContent = await loadTemplate('../partials/header.html');
-    const navContent = await loadTemplate('../partials/nav.html');
-    const latLonContent = await loadTemplate('../partials/latlonform.html');
-    const footerContent = await loadTemplate('../partials/footer.html');
+    const headerContent = await loadTemplate('/partials/header.html');
+    const navContent = await loadTemplate('/partials/nav.html');
+    const latLonContent = await loadTemplate('/partials/latlonform.html');
+    const footerContent = await loadTemplate('/partials/footer.html');
 
     // Get the parent elements
     const header = document.getElementById("siteHeader");
