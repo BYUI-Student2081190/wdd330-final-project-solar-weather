@@ -1,9 +1,182 @@
 /* SHARED STYLES */
+:root {
+    /* Font Families */
+    --font-body: "Roboto", sans-serif;
+    --font-header: "Righteous", sans-serif;
+    /* Site Colors */
+    --primary-color: #2A52BE;
+    --background-color: #ffff;
+    --highlight-color: #F1A300;
+    --highligh-two-color: #D3D3D3;
+    --font-color: #222127;
+    --primary-dark-color: #121212;
+    --font-dark-color: #ffffff;
+    --dark-accent-one: #FF4500;
+    --dark-accent-two: #DAA520;
+    /* Font Sizes */
+    --font-base: 18px;
+    --small-font: 0.8em;
+    --large-font: 1.2em;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: "Roboto", sans-serif;
+    font-family: var(--font-body);
+    font-size: var(--font-base);
+    color: var(--font-color);
 }
 
 h1,
 h3 {
-    font-family: "Righteous", sans-serif;
+    font-family: var(--font-header);
+}
+
+img {
+    width: 100%;
+}
+
+.alert {
+    display: flex;
+    background-color: var(--highlight-color);
+    color: var(--font-color);
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    justify-self: center;
+    width: 100%;
+    max-width: 900px;
+    border: 1px solid var(--font-color);
+    margin: 10px;
+}
+
+.alert span {
+    font-size: var(--large-font);
+    padding: 1.2rem;
+    cursor: pointer;
+}
+
+/* HEADER STYLE */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--primary-color);
+}
+
+header img {
+    max-width: 200px;
+    height: auto;
+    border: 1px solid var(--font-color);
+}
+
+header button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* NAV STYLE */
+nav {
+    border-bottom: 1px solid var(--font-color);
+    background-color: var(--primary-color);
+    padding: 10px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 0;
+}
+
+nav ul li {
+    padding: 1rem;
+}
+
+nav ul li a {
+    color: var(--font-color);
+    text-decoration: none;
+    padding: 1rem;
+    background-color: var(--highlight-color);
+    border: 1px solid var(--font-color);
+    cursor: pointer;
+    font-size: var(--large-font);
+}
+
+nav ul li a:hover {
+    background-color: var(--background-color);
+    color: var(--font-color);
+}
+
+/* MAIN STYLE */
+main {
+    padding: 15px;
+}
+
+/* Form Style */
+#latandlon-container {
+    justify-self: center;
+}
+
+#latandlon-container form {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    column-gap: 1.5rem;
+    background-color: var(--highligh-two-color);
+    border: 1px solid var(--font-color);
+    border-radius: 1rem;
+}
+
+#latandlon-container label {
+    font-family: var(--font-header);
+}
+
+#latandlon-container input {
+    padding: 0.3rem;
+    font-family: var(--font-body);
+}
+
+#latandlon-container button {
+    background-color: var(--highlight-color);
+    color: var(--font-color);
+    cursor: pointer;
+    border: 1px solid var(--font-color);
+    border-radius: 1rem;
+}
+
+#latandlon-container button:hover {
+    background-color: var(--background-color);
+}
+
+#latandlon-container button {
+    padding: 0.5rem 1.5rem;
+    text-align: center;
+}
+
+/* FOOTER STYLE */
+footer {
+    border-top: 1px solid var(--font-color);
+    padding: 10px;
+}
+
+footer div {
+    margin-top: 10px;
+}
+
+footer h3 {
+    margin-bottom: 5px;
+}
+
+footer p {
+    margin: 2.5px;
 }
