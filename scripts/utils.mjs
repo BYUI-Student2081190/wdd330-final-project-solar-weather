@@ -24,6 +24,50 @@ async function loadTemplate(path) {
     return result;
 }
 
+// Function used to add the current year and last modified date to the footer of the page
+function setModAndYear() {
+    // Create a new date object to use
+    const date = new Date();
+    const copyrightyear = date.getFullYear();
+
+    // Get the document last modified date
+    const modDate = document.lastModified;
+
+    // Get the parent elements
+    const copyright = document.getElementById("copyright");
+    const modified = document.getElementById("lastmodified");
+
+    // Now set their text content to be the text we got
+    copyright.textContent = copyrightyear;
+    modified.textContent = modDate;
+}
+
+// Function used to create the event listners for the buttons in the header, and form
+function setEventHandlers() {
+    // Darkmode Handler
+    const darkmode = document.getElementById("darkmode-toggle");
+    darkmode.addEventListener("click", () => {
+        // Add darkmode to body to provide CSS with a guide
+        document.body.classList.toggle("darkmode");
+
+        // Get the img inside the button
+        const img = darkmode.getElementsByTagName("img")[0];
+
+        // If darkmode is active change the picture in the button
+        if (document.body.classList.contains("darkmode")) {
+            img.setAttribute("src", "/images/moon-fill.svg");
+            img.setAttribute("alt", "Dark Mode Icon");
+            darkmode.setAttribute("aria-label", "Toggle Darkmode Off");
+        } else {
+            img.setAttribute("src", "/images/moon.svg");
+            img.setAttribute("alt", "Light Mode Icon");
+            darkmode.setAttribute("aria-label", "Toggle Darkmode On");
+        };
+    });
+    // Hamburger Handler -- Add Later
+    // LatAndLon Form Handler
+}
+
 // Function to create the header, footer, nav, and lat lon form dynamically
 export async function loadHeaderFooterNavLatLonForm() {
     // Render the templates
@@ -46,22 +90,5 @@ export async function loadHeaderFooterNavLatLonForm() {
 
     // Set the ModAndYear after all this has ran
     setModAndYear();
-}
-
-// Function used to add the current year and last modified date to the footer of the page
-export function setModAndYear() {
-    // Create a new date object to use
-    const date = new Date();
-    const copyrightyear = date.getFullYear();
-
-    // Get the document last modified date
-    const modDate = document.lastModified;
-
-    // Get the parent elements
-    const copyright = document.getElementById("copyright");
-    const modified = document.getElementById("lastmodified");
-
-    // Now set their text content to be the text we got
-    copyright.textContent = copyrightyear;
-    modified.textContent = modDate;
+    setEventHandlers();
 }
