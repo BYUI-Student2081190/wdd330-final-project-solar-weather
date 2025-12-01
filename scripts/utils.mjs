@@ -42,11 +42,21 @@ function setEventHandlers() {
 
         // If darkmode is active change the picture in the button
         if (document.body.classList.contains("darkmode")) {
-            img.setAttribute("src", "images/moon-fill.svg");
+            // Set different for dev and prod
+            if (CONFIG.baseUrl === "PROD") {
+                img.setAttribute("src", "images/moon-fill.svg");
+            } else {
+                img.setAttribute("src", "../images/moon-fill.svg");
+            };
             img.setAttribute("alt", "Dark Mode Icon");
             darkmode.setAttribute("aria-label", "Toggle Darkmode Off");
         } else {
-            img.setAttribute("src", "images/moon.svg");
+            // Set different for dev and prod
+            if (CONFIG.baseUrl === "PROD") {
+                img.setAttribute("src", "images/moon.svg");
+            } else {
+                img.setAttribute("src", "../images/moon.svg");
+            };
             img.setAttribute("alt", "Light Mode Icon");
             darkmode.setAttribute("aria-label", "Toggle Darkmode On");
         };
@@ -106,6 +116,20 @@ function setEventHandlers() {
     });
 }
 
+// Function built to obtain the page name and use it to add things to prod pages to help site work
+function setBaseURLOnProd() {
+    const path = window.location.pathname;
+    
+    // Check to see if the path contains weather.html or night-sky.html
+    if (path.includes("weather.html") || path.includes("night-sky.html")) {
+        // Now add the base element to the head of these pages
+        const head = document.querySelector("head");
+        const baseEle = document.createElement("base");
+        baseEle.setAttribute("href", "/wdd330-final-project-solar-weather/");
+        head.appendChild(baseEle);
+    };
+}
+
 // Function built to render the object with a template to save
 // to the parent element in the document
 export async function renderUsingTemplate(template, parentElement, data, callback, clear = true) {
@@ -161,25 +185,41 @@ export function removeAllAlerts() {
 
 // Function to create the header, footer, nav, and lat lon form dynamically
 export async function loadHeaderFooterNavLatLonForm() {
-    // Log Config
-    console.log(CONFIG);
-    // Render the templates
-    const headerContent = await loadTemplate('partials/header.html');
-    const navContent = await loadTemplate('partials/nav.html');
-    const latLonContent = await loadTemplate('partials/latlonform.html');
-    const footerContent = await loadTemplate('partials/footer.html');
-
     // Get the parent elements
     const header = document.getElementById("siteHeader");
     const nav = document.getElementById("siteNav");
     const latlonContainer = document.getElementById("latandlon-container");
     const footer = document.getElementById("siteFooter");
 
-    // Render them all
-    renderUsingTemplate(headerContent, header);
-    renderUsingTemplate(navContent, nav);
-    renderUsingTemplate(latLonContent, latlonContainer);
-    renderUsingTemplate(footerContent, footer);
+    // Render the templates based on if we are in prod or dev to make development easier
+    if (CONFIG.baseUrl === "PROD") {
+        // If we are in the weather.html or night-sky.html set this first before we go on
+        setBaseURLOnProd();
+
+        // This means we are in production
+        const headerContent = await loadTemplate('partials/header.html');
+        const navContent = await loadTemplate('partials/nav.html');
+        const latLonContent = await loadTemplate('partials/latlonform.html');
+        const footerContent = await loadTemplate('partials/footer.html');
+
+        // Render them all
+        renderUsingTemplate(headerContent, header);
+        renderUsingTemplate(navContent, nav);
+        renderUsingTemplate(latLonContent, latlonContainer);
+        renderUsingTemplate(footerContent, footer);
+    } else {
+        // This means we are in dev
+        const headerContent = await loadTemplate('../partials/header-dev.html');
+        const navContent = await loadTemplate('../partials/nav-dev.html');
+        const latLonContent = await loadTemplate('../partials/latlonform.html');
+        const footerContent = await loadTemplate('../partials/footer.html');
+
+        // Render them all
+        renderUsingTemplate(headerContent, header);
+        renderUsingTemplate(navContent, nav);
+        renderUsingTemplate(latLonContent, latlonContainer);
+        renderUsingTemplate(footerContent, footer);
+    };
 
     // Set the ModAndYear after all this has ran
     setModAndYear();
