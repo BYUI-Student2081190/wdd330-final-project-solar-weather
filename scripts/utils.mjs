@@ -1,5 +1,6 @@
 // Imports needed
 import ExternalServices from "./ExternalServices.mjs";
+import CONFIG from "./config.mjs";
 
 // Function built to load a template and use it to create a text
 // version of the html template to be used in creating the content
@@ -160,6 +161,8 @@ export function removeAllAlerts() {
 
 // Function to create the header, footer, nav, and lat lon form dynamically
 export async function loadHeaderFooterNavLatLonForm() {
+    // Log Config
+    console.log(CONFIG);
     // Render the templates
     const headerContent = await loadTemplate('partials/header.html');
     const navContent = await loadTemplate('partials/nav.html');
