@@ -50,6 +50,10 @@ function setEventHandlers() {
             };
             img.setAttribute("alt", "Dark Mode Icon");
             darkmode.setAttribute("aria-label", "Toggle Darkmode Off");
+            // Set the darkmode setting
+            const userData = getLocalStorage("userSettings");
+            userData.darkmode = true;
+            setLocalStorage("userSettings", userData);
         } else {
             // Set different for dev and prod
             if (CONFIG.baseUrl === "PROD") {
@@ -59,6 +63,10 @@ function setEventHandlers() {
             };
             img.setAttribute("alt", "Light Mode Icon");
             darkmode.setAttribute("aria-label", "Toggle Darkmode On");
+            // Set the darkmode setting
+            const userData = getLocalStorage("userSettings");
+            userData.darkmode = false;
+            setLocalStorage("userSettings", userData);
         };
     });
     // Hamburger Handler -- Add Later
@@ -127,6 +135,70 @@ function setBaseURLOnProd() {
         const baseEle = document.createElement("base");
         baseEle.setAttribute("href", "/wdd330-final-project-solar-weather/");
         head.appendChild(baseEle);
+    };
+}
+
+// Function used to create user data if local storage returns null
+function createNewUserData() {
+    // On default the site will make darkmode false, add more later as seen fit
+    const userData = {
+        darkmode: false
+    };
+    // Return the default object
+    return userData;
+}
+
+// Function to save to local storage
+export function setLocalStorage(key, value) {
+    // Save the value to the key in local storage
+    // NOTE: Only objects are saved to local storage at those keys
+    localStorage.setItem(key, JSON.stringify(value));
+}
+
+// Function to load in from local storage
+export function getLocalStorage(key, defaultReturn = null) {
+    // Place this in a try catch to keep it safe
+    try {
+        const dataStr = localStorage.getItem(key);
+        if (dataStr === null) { return defaultReturn };
+        const data = JSON.parse(dataStr);
+        return data;
+    } catch (error) {
+        console.log(`Error parsing value from local storage at key, ${key}: ${error.message}`);
+        return defaultReturn;
+    };
+}
+
+// Create a function that runs when a page is loaded. When it is loaded check to see in local storage if
+// darkmode is set to true
+export function isDarkModeActive() {
+    // Call local storage to obtain the user data
+    const userData = getLocalStorage("userSettings");
+
+    if (userData != null) {
+        const darkmodeValue = userData.darkmode;
+
+        // If darkmode value is true do this and set the site to darkmode automatically
+        if (darkmodeValue) {
+            // Set the body to dark mode and update the header image
+            const darkmode = document.getElementById("darkmode-toggle");
+            // Add darkmode to body to provide CSS with a guide
+            document.body.classList.toggle("darkmode");
+
+            // Get the img inside the button
+            const img = darkmode.getElementsByTagName("img")[0];
+            if (CONFIG.baseUrl === "PROD") {
+                img.setAttribute("src", "images/moon-fill.svg");
+            } else {
+                img.setAttribute("src", "../images/moon-fill.svg");
+            };
+            img.setAttribute("alt", "Dark Mode Icon");
+            darkmode.setAttribute("aria-label", "Toggle Darkmode Off");
+        };
+    } else {
+        // If this comes back as null create the default object and save it to local storage
+        const newUserData = createNewUserData();
+        setLocalStorage("userSettings", newUserData);
     };
 }
 
