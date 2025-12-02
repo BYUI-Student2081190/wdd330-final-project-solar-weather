@@ -1,5 +1,4 @@
 // Imports needed
-import ExternalServices from "./ExternalServices.mjs";
 import CONFIG from "./config.mjs";
 
 // Function built to load a template and use it to create a text
@@ -87,29 +86,43 @@ function setEventHandlers() {
         };
 
         if (isNumber(latitude) && isNumber(longitude)) {
+            // Check to see if the user wants to save the lat and lon data before it is used
+            // NOTE: Maybe as an extra thing create a dialog modle to style and use instead
+            const userConfirm = confirm("Would you like to save these values to use again?");
+
+            // If they agree it saves it in local storage
+            if (userConfirm) {
+                // Add to local storage if this checks out
+                const latLonData = {
+                    lat: latitude,
+                    lon: longitude
+                };
+                setLocalStorage("locationData", latLonData);
+            };
+            // Keep this block commented out until we get the api calls on the right pages
             // Add local storage calls later, use confirm() to see if the user wants to save it to local storage. For now just get the api calls running
-            const apiCall = new ExternalServices();
-            const solarData = await apiCall.getSolarData();
-            const mostRecent = solarData[solarData.length - 1];
-            console.log(mostRecent);
-            const weatherData = await apiCall.getWeatherDataWithLatLon(Number(latitude), Number(longitude));
-            const forecastData = await apiCall.getWeatherForecast(weatherData.properties.forecast);
-            console.log(forecastData);
-            // Display the data to the home page just to show off the data
-            const apiTestContainer = document.getElementById("testApiData");
-            apiTestContainer.innerHTML = `
-                <h1>Solar Data</h1>
-                <p>Estimated kp: ${mostRecent.estimated_kp}</p>
-                <p>kp: ${mostRecent.kp}</p>
-                <p>kp Index: ${mostRecent.kp_index}</p>
-                <p>Time Tag: ${mostRecent.time_tag}</p>
-                <h1>Weather Forcast Data</h1>
-                <p>DetailedForecast: ${forecastData.properties.periods[0].detailedForecast}</p>
-                <p>End Time: ${forecastData.properties.periods[0].endTime}</p>
-                <p>Name: ${forecastData.properties.periods[0].name}</p>
-                <p>Short Forecast: ${forecastData.properties.periods[0].shortForecast}</p>
-                <p>Temperature: ${forecastData.properties.periods[0].temperature}</p>
-            `;
+            // const apiCall = new ExternalServices();
+            // const solarData = await apiCall.getSolarData();
+            // const mostRecent = solarData[solarData.length - 1];
+            // console.log(mostRecent);
+            // const weatherData = await apiCall.getWeatherDataWithLatLon(Number(latitude), Number(longitude));
+            // const forecastData = await apiCall.getWeatherForecast(weatherData.properties.forecast);
+            // console.log(forecastData);
+            // // Display the data to the home page just to show off the data
+            // const apiTestContainer = document.getElementById("testApiData");
+            // apiTestContainer.innerHTML = `
+            //     <h1>Solar Data</h1>
+            //     <p>Estimated kp: ${mostRecent.estimated_kp}</p>
+            //     <p>kp: ${mostRecent.kp}</p>
+            //     <p>kp Index: ${mostRecent.kp_index}</p>
+            //     <p>Time Tag: ${mostRecent.time_tag}</p>
+            //     <h1>Weather Forcast Data</h1>
+            //     <p>DetailedForecast: ${forecastData.properties.periods[0].detailedForecast}</p>
+            //     <p>End Time: ${forecastData.properties.periods[0].endTime}</p>
+            //     <p>Name: ${forecastData.properties.periods[0].name}</p>
+            //     <p>Short Forecast: ${forecastData.properties.periods[0].shortForecast}</p>
+            //     <p>Temperature: ${forecastData.properties.periods[0].temperature}</p>
+            // `;
         } else {
             // Clear all past alerts to make way for the new ones
             removeAllAlerts();
