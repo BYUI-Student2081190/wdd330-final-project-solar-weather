@@ -75,12 +75,30 @@ header img {
     border: 1px solid var(--font-color);
 }
 
+header div {
+    display: flex;
+    column-gap: 20px;
+}
+
 header button {
     width: 40px;
     height: 40px;
     border: none;
     background: transparent;
     cursor: pointer;
+}
+
+#hamburger {
+    font-size: 2rem;
+    text-align: center;
+}
+
+#hamburger::before {
+    content: "\2630";
+}
+
+#hamburger.open::before {
+    content: "X";
 }
 
 /* NAV STYLE */

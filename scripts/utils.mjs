@@ -68,7 +68,14 @@ function setEventHandlers() {
             setLocalStorage("userSettings", userData);
         };
     });
-    // Hamburger Handler -- Add Later
+
+    // Hamburger Handler
+    const hamburger = document.getElementById("hamburger");
+    hamburger.addEventListener("click", () => {
+        document.getElementById("siteNav").classList.toggle("open");
+        hamburger.classList.toggle("open");
+    });
+    
     // LatAndLon Form Handler
     if (window.location.pathname.includes("weather.html") || window.location.pathname.includes("night-sky.html")) {
         const latAndLonForm = document.getElementById("latandlon-form");
