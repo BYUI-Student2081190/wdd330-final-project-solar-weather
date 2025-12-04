@@ -70,71 +70,43 @@ function setEventHandlers() {
     });
     // Hamburger Handler -- Add Later
     // LatAndLon Form Handler
-    const latAndLonForm = document.getElementById("latandlon-form");
-    latAndLonForm.addEventListener("submit", async (event) => {
-        // Prevent the default action because we want to stay on this page
-        event.preventDefault();
+    if (window.location.pathname.includes("weather.html") || window.location.pathname.includes("night-sky.html")) {
+        const latAndLonForm = document.getElementById("latandlon-form");
+        latAndLonForm.addEventListener("submit", async (event) => {
+            // Prevent the default action because we want to stay on this page
+            event.preventDefault();
 
-        // Get the values from the form
-        const latitude = document.getElementById("latitude").value;
-        const longitude = document.getElementById("longitude").value;
+            // Get the values from the form
+            const latitude = document.getElementById("latitude").value;
+            const longitude = document.getElementById("longitude").value;
 
-        // Check to see if they are valid float values
-        function isNumber(value) {
-            const num = Number(value);
-            return !isNaN(num);
-        };
+            if (isNumber(latitude) && isNumber(longitude)) {
+                // Check to see if the user wants to save the lat and lon data before it is used
+                // NOTE: Maybe as an extra thing create a dialog modle to style and use instead
+                const userConfirm = confirm("Would you like to save these values to use again?");
 
-        if (isNumber(latitude) && isNumber(longitude)) {
-            // Check to see if the user wants to save the lat and lon data before it is used
-            // NOTE: Maybe as an extra thing create a dialog modle to style and use instead
-            const userConfirm = confirm("Would you like to save these values to use again?");
-
-            // If they agree it saves it in local storage
-            if (userConfirm) {
-                // Add to local storage if this checks out
-                const latLonData = {
-                    lat: latitude,
-                    lon: longitude
+                // If they agree it saves it in local storage
+                if (userConfirm) {
+                    // Add to local storage if this checks out
+                    const latLonData = {
+                        lat: latitude,
+                        lon: longitude
+                    };
+                    setLocalStorage("locationData", latLonData);
                 };
-                setLocalStorage("locationData", latLonData);
-            };
-            // Keep this block commented out until we get the api calls on the right pages
-            // Add local storage calls later, use confirm() to see if the user wants to save it to local storage. For now just get the api calls running
-            // const apiCall = new ExternalServices();
-            // const solarData = await apiCall.getSolarData();
-            // const mostRecent = solarData[solarData.length - 1];
-            // console.log(mostRecent);
-            // const weatherData = await apiCall.getWeatherDataWithLatLon(Number(latitude), Number(longitude));
-            // const forecastData = await apiCall.getWeatherForecast(weatherData.properties.forecast);
-            // console.log(forecastData);
-            // // Display the data to the home page just to show off the data
-            // const apiTestContainer = document.getElementById("testApiData");
-            // apiTestContainer.innerHTML = `
-            //     <h1>Solar Data</h1>
-            //     <p>Estimated kp: ${mostRecent.estimated_kp}</p>
-            //     <p>kp: ${mostRecent.kp}</p>
-            //     <p>kp Index: ${mostRecent.kp_index}</p>
-            //     <p>Time Tag: ${mostRecent.time_tag}</p>
-            //     <h1>Weather Forcast Data</h1>
-            //     <p>DetailedForecast: ${forecastData.properties.periods[0].detailedForecast}</p>
-            //     <p>End Time: ${forecastData.properties.periods[0].endTime}</p>
-            //     <p>Name: ${forecastData.properties.periods[0].name}</p>
-            //     <p>Short Forecast: ${forecastData.properties.periods[0].shortForecast}</p>
-            //     <p>Temperature: ${forecastData.properties.periods[0].temperature}</p>
-            // `;
-        } else {
-            // Clear all past alerts to make way for the new ones
-            removeAllAlerts();
-            if (!isNumber(latitude)) {
-                createAlertMessage("Your entered Latitude is not a proper number or decimal.");
-            };
+            } else {
+                // Clear all past alerts to make way for the new ones
+                removeAllAlerts();
+                if (!isNumber(latitude)) {
+                    createAlertMessage("Your entered Latitude is not a proper number or decimal.");
+                };
 
-            if (!isNumber(longitude)) {
-                createAlertMessage("Your entered Longitude is not a proper number or decimal.");
+                if (!isNumber(longitude)) {
+                    createAlertMessage("Your entered Longitude is not a proper number or decimal.");
+                };
             };
-        };
-    });
+        });
+    }
 }
 
 // Function built to obtain the page name and use it to add things to prod pages to help site work
@@ -159,6 +131,16 @@ function createNewUserData() {
     };
     // Return the default object
     return userData;
+}
+
+// Check to see if they are valid float values
+export function isNumber(value) {
+    if (value.trim() === "") {
+        return false;
+    } else {
+        const num = Number(value);
+        return !isNaN(num);
+    };
 }
 
 // Function to save to local storage
@@ -284,25 +266,29 @@ export async function loadHeaderFooterNavLatLonForm() {
         // This means we are in production
         const headerContent = await loadTemplate('partials/header.html');
         const navContent = await loadTemplate('partials/nav.html');
-        const latLonContent = await loadTemplate('partials/latlonform.html');
+        if (path.includes("weather.html") || path.includes("night-sky.html")) {
+            const latLonContent = await loadTemplate('partials/latlonform.html');
+            renderUsingTemplate(latLonContent, latlonContainer);
+        };
         const footerContent = await loadTemplate('partials/footer.html');
 
         // Render them all
         renderUsingTemplate(headerContent, header);
         renderUsingTemplate(navContent, nav);
-        renderUsingTemplate(latLonContent, latlonContainer);
         renderUsingTemplate(footerContent, footer);
     } else {
         // This means we are in dev
         const headerContent = await loadTemplate('../partials/header-dev.html');
         const navContent = await loadTemplate('../partials/nav-dev.html');
-        const latLonContent = await loadTemplate('../partials/latlonform.html');
+        if (window.location.pathname.includes("weather.html") || window.location.pathname.includes("night-sky.html")) {
+            const latLonContent = await loadTemplate('../partials/latlonform.html');
+            renderUsingTemplate(latLonContent, latlonContainer);
+        };
         const footerContent = await loadTemplate('../partials/footer.html');
 
         // Render them all
         renderUsingTemplate(headerContent, header);
         renderUsingTemplate(navContent, nav);
-        renderUsingTemplate(latLonContent, latlonContainer);
         renderUsingTemplate(footerContent, footer);
     };
 

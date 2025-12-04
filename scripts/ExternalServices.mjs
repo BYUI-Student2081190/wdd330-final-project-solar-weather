@@ -27,9 +27,13 @@ export default class ExternalServices {
 
     // Obtain the weather data with the latitude and longitude
     async getWeatherDataWithLatLon(latitude, longitude) {
-        const response = await fetch(`${weatherURL}${latitude},${longitude}`);
-        const data = await convertToJson(response);
-        return data;
+        try {
+            const response = await fetch(`${weatherURL}${latitude},${longitude}`);
+            const data = await convertToJson(response);
+            return data;
+        } catch (error) {
+            return error;
+        }
     }
 
     // Obtain the weather forecast
