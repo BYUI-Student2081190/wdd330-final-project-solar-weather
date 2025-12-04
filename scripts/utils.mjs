@@ -266,7 +266,7 @@ export async function loadHeaderFooterNavLatLonForm() {
         // This means we are in production
         const headerContent = await loadTemplate('partials/header.html');
         const navContent = await loadTemplate('partials/nav.html');
-        if (path.includes("weather.html") || path.includes("night-sky.html")) {
+        if (window.location.pathname.includes("weather.html") || window.location.pathname.includes("night-sky.html")) {
             const latLonContent = await loadTemplate('partials/latlonform.html');
             renderUsingTemplate(latLonContent, latlonContainer);
         };
