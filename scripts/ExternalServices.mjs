@@ -20,9 +20,13 @@ export default class ExternalServices {
     }
 
     async getSolarData() {
-        const response = await fetch(solarURL);
-        const data = await convertToJson(response);
-        return data;
+        try {
+            const response = await fetch(solarURL);
+            const data = await convertToJson(response);
+            return data;
+        } catch (error) {
+            return error;
+        }
     }
 
     // Obtain the weather data with the latitude and longitude

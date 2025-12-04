@@ -12,6 +12,7 @@ export default class Weather {
         this.dataSource = dataSource;
         this.forecast = forecast;
         this.forecastCards = [];
+        this.success = false; // This is only done to let SolarWeather to run on the night-sky page
     }
 
     async init() {
@@ -19,7 +20,12 @@ export default class Weather {
         if (isNumber(this.lat) && isNumber(this.lon)) {
             // Check to see if they are both numbers if so use them.
             const forecastURL = await this.dataSource.getWeatherDataWithLatLon(this.lat, this.lon);
-            this.weatherDisplay(forecastURL);
+            const didIt = this.weatherDisplay(forecastURL);
+            if (didIt) {
+                this.success = true;
+            } else {
+                this.success = false;
+            }
         } else {
             // If they are not numbers do not use and try to use local storage
             const localData = getLocalStorage("locationData");
@@ -28,7 +34,12 @@ export default class Weather {
                 // If it does not come back null and actually has information in it
                 // then use it
                 const forecastURL = await this.dataSource.getWeatherDataWithLatLon(localData.lat, localData.lon);
-                this.weatherDisplay(forecastURL);
+                const didIt = this.weatherDisplay(forecastURL);
+                if (didIt) {
+                    this.success = true;
+                } else {
+                    this.success = false;
+                }
             } else {
                 // Handle the alerts to the user
                 // Clear all past alerts to make way for the new ones
@@ -94,11 +105,15 @@ export default class Weather {
                 this.parentElement.appendChild(displayButton);
                 this.parentElement.appendChild(forecastContainer);
             }
+            // Set success to true because the try catch did not fire off
+            return true;
         } catch (error) {
             // Display the error so the user knows what happened
             console.log(`Lat and Lon not valid points for API: ${error.message}`);
             removeAllAlerts();
             createAlertMessage("The Latitude and Longitude you entered was not in the U.S. please enter a new one.");
+            // Set success to false because it did not work
+            return false;
         }
     }
 
