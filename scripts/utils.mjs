@@ -140,6 +140,25 @@ function createNewUserData() {
     return userData;
 }
 
+// Function to set the active page in the nav
+function setActivePage() {
+    // Get all the a tags
+    const nav = document.getElementById("siteNav");
+    const links = nav.querySelectorAll("a");
+    // Check for the page
+    if (window.location.pathname.includes("index.html")) {
+        links[0].classList.add("currentPage");
+    }
+
+    if (window.location.pathname.includes("weather.html")) {
+        links[1].classList.add("currentPage");
+    }
+
+    if (window.location.pathname.includes("night-sky.html")) {
+        links[2].classList.add("currentPage");
+    }
+}
+
 // Check to see if they are valid float values
 export function isNumber(value) {
     if (value.trim() === "") {
@@ -302,4 +321,5 @@ export async function loadHeaderFooterNavLatLonForm() {
     // Set the ModAndYear after all this has ran
     setModAndYear();
     setEventHandlers();
+    setActivePage();
 }

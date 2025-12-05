@@ -32,6 +32,7 @@ body {
 }
 
 h1,
+h2,
 h3 {
     font-family: var(--font-header);
 }
@@ -116,11 +117,12 @@ nav ul {
     margin: 0;
 }
 
-nav ul li {
+nav li {
     padding: 1rem;
 }
 
-nav ul li a {
+nav a {
+    font-family: var(--font-header);
     color: var(--font-color);
     text-decoration: none;
     padding: 1rem;
@@ -130,7 +132,11 @@ nav ul li a {
     font-size: var(--large-font);
 }
 
-nav ul li a:hover {
+nav a.currentPage {
+    text-decoration: underline;
+}
+
+nav a:hover {
     background-color: var(--background-color);
     color: var(--font-color);
 }
@@ -138,6 +144,41 @@ nav ul li a:hover {
 /* MAIN STYLE */
 main {
     padding: 15px;
+}
+
+.image-slider {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    justify-items: center;
+    justify-self: center;
+    max-width: 600px;
+}
+
+.image-slider img {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+    z-index: 0;
+    opacity: 0;
+}
+
+.image-slider img.activeImage {
+    z-index: 1;
+    border: 1px solid var(--font-color);
+    animation: 0.4s ease-in 0.2s forwards fadeIn;
+}
+
+.image-slider img.activeImage:hover {
+    box-shadow: 10px 10px 10px var(--font-color);
+    cursor: pointer;
+}
+
+.image-slider img.slide-away {
+    z-index: 2;
+    animation: 0.6s ease-out forwards slideOut;
 }
 
 /* Form Style */
@@ -197,4 +238,25 @@ footer h3 {
 
 footer p {
     margin: 2.5px;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    } 
+    to {
+        opacity: 0;
+        transform: translateX(-50vw);
+    }
 }
