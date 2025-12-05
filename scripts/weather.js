@@ -1,5 +1,5 @@
 // Import needed things into file
-import { loadHeaderFooterNavLatLonForm, isDarkModeActive } from "./utils.mjs";
+import { loadHeaderFooterNavLatLonForm, isDarkModeActive, openLoadingScreen, closeLoadingScreen } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 import Weather from "./Weather.mjs";
 
@@ -10,6 +10,9 @@ loadHeaderFooterNavLatLonForm().then(() => {
 
     // Create a click event on the button to get the data
     document.getElementById("obtainData").addEventListener("click", () => {
+        // Open Loading Screen
+        openLoadingScreen();
+
         // Create the elements needed for the rest of the page
         const parentElement = document.querySelector(".weatherContainer");
         const lat = document.getElementById("latitude").value;
@@ -18,6 +21,8 @@ loadHeaderFooterNavLatLonForm().then(() => {
         const weatherGenerator = new Weather(lat, lon, parentElement, dataSource, true);
 
         // Call the function for the weather display
-        weatherGenerator.init();
+        weatherGenerator.init().then( () => {
+            closeLoadingScreen();
+        });
     });
 });

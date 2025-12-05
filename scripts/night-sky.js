@@ -1,5 +1,5 @@
 // Import needed things into file
-import { loadHeaderFooterNavLatLonForm, isDarkModeActive } from "./utils.mjs";
+import { loadHeaderFooterNavLatLonForm, isDarkModeActive, openLoadingScreen, closeLoadingScreen } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 import SolarWeather from "./SolarWeather.mjs";
 import Weather from "./Weather.mjs"; // Make sure to run this before SolarWeather because it has the lat and lon checks
@@ -11,6 +11,8 @@ loadHeaderFooterNavLatLonForm().then(() => {
 
     // Create the click event on the get data button
     document.getElementById("obtainData").addEventListener("click", () => {
+        // Open loading screen
+        openLoadingScreen();
         // Create a new ExtrenalServices to use in the program
         const dataSource = new ExternalServices();
         // Obtain the lat and lon from the document
@@ -25,8 +27,6 @@ loadHeaderFooterNavLatLonForm().then(() => {
 
         // Init the weather object
         WeatherGen.init().then(() => {
-            // Console log WeatherGen Success
-            console.log(WeatherGen.success);
             // If everything was okay during the weather generation check it and move on
             if (WeatherGen.success) {
                 // Create the solar weather object
@@ -34,6 +34,8 @@ loadHeaderFooterNavLatLonForm().then(() => {
                 // Init the SolarWeatherGen
                 SolarWeatherGen.init();
             }
+            // Close the loading screen
+            closeLoadingScreen();
         });
     });
 });

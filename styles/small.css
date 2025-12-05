@@ -61,6 +61,33 @@ img {
     cursor: pointer;
 }
 
+/* LOADING SCREEN */
+.loading:not([open]) {
+    display: none;
+}
+
+.loading {
+    width: 90%;
+    height: 50%;
+    align-self: center;
+    justify-self: center;
+    border: 1px solid var(--font-color);
+    border-radius: 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.loading p {
+    font-size: 2.5rem;
+    font-weight: 900;
+    font-family: var(--font-header);
+}
+
+.loading .loadingIcon {
+    animation: 0.8s linear infinite loadingSpinner;
+}
+
 /* HEADER STYLE */
 header {
     display: flex;
@@ -258,5 +285,14 @@ footer p {
     to {
         opacity: 0;
         transform: translateX(-50vw);
+    }
+}
+
+@keyframes loadingSpinner {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }

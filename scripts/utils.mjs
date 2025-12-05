@@ -159,6 +159,30 @@ function setActivePage() {
     }
 }
 
+// Function to open loading screen
+export function openLoadingScreen() {
+    // Add things to the dialog first
+    const loadingScreen = document.querySelector(".loading");
+    const loadingWords = document.createElement("p");
+    const loadingIcon = document.createElement("p");
+    loadingIcon.textContent = "◐";
+    loadingWords.textContent = "Loading...";
+    loadingIcon.classList.add("loadingIcon");
+    loadingScreen.appendChild(loadingWords);
+    loadingScreen.appendChild(loadingIcon);
+
+    // Open the dialog element
+    loadingScreen.showModal();
+}
+
+// Function to close loading screen
+export function closeLoadingScreen() {
+    // Close the loading screen
+    const loadingScreen = document.querySelector(".loading");
+    loadingScreen.close();
+    loadingScreen.replaceChildren(); // Delete its children
+}
+
 // Check to see if they are valid float values
 export function isNumber(value) {
     if (value.trim() === "") {
