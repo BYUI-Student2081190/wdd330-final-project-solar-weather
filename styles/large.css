@@ -1,0 +1,57 @@
+@media screen and (min-width: 650px) {
+    
+    /* HEADER STYLE */
+    #hamburger {
+        display: none;
+    }
+
+    /* NAV STYLE */
+    nav {
+        display: block;
+    }
+
+    nav ul {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    /* MAIN STYLE */
+    .homeContent {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 10rem 1fr;
+        column-gap: 10px;
+    }
+
+    .homeTop {
+        grid-column: 1/3;
+        grid-row: 1/2;
+    }
+
+    .homeMiddle {
+        grid-column: 1/2;
+        grid-row: 2/3;
+    }
+
+    .homeBottom {
+        grid-column: 2/3;
+        grid-row: 2/3;
+    }
+
+    .forecastContainer {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        align-content: center;
+        column-gap: 10px;
+    }
+
+    /* FORM STYLE */
+    #latandlon-container form {
+        flex-direction: row;
+    }
+
+    #latandlon-container input {
+        width: 90%;
+    }
+}
