@@ -12,8 +12,9 @@
     --font-color: #222127;
     --primary-dark-color: #121212;
     --font-dark-color: #ffffff;
-    --dark-accent-one: #FF4500;
+    --dark-accent-one: #4f1536;
     --dark-accent-two: #DAA520;
+    --dark-box-shadow: #444346;
     /* Font Sizes */
     --font-base: 18px;
     --small-font: 0.8em;
@@ -31,6 +32,119 @@ body {
     font-size: var(--font-base);
     color: var(--font-color);
 }
+
+/* DARKMODE STYLE */
+.darkmode {
+    color: var(--font-dark-color);
+}
+
+.darkmode header,
+.darkmode nav,
+.darkmode main,
+.darkmode footer {
+    background-color: var(--primary-dark-color);
+}
+
+.darkmode header img {
+    border: 1px solid var(--font-dark-color);
+}
+
+.darkmode header button img {
+    border: 0;
+}
+
+.darkmode #hamburger {
+    color: var(--font-dark-color);
+}
+
+
+.darkmode nav {
+    border-bottom: 1px solid var(--font-dark-color);
+}
+
+.darkmode nav a {
+    background-color: var(--primary-dark-color);
+    color: var(--font-dark-color);
+    border: 1px solid var(--font-dark-color);
+}
+
+.darkmode nav a:hover {
+    background-color: var(--font-dark-color);
+    color: var(--primary-dark-color);
+}
+
+.darkmode footer {
+    border-top: 1px solid var(--font-dark-color);
+}
+
+.darkmode .image-slider img.activeImage {
+    border: 1px solid var(--highligh-two-color);
+}
+
+.darkmode .image-slider img.activeImage:hover {
+    box-shadow: 10px 10px 10px var(--dark-box-shadow);
+}
+
+.darkmode .homeContent div {
+    border: 1px solid var(--font-dark-color);
+    border-radius: 0.5rem;
+    box-shadow: 5px 5px 5px var(--dark-box-shadow);
+}
+
+.darkmode .homeContent div a {
+    color: var(--dark-accent-two);
+}
+
+.darkmode .homeContent div a:hover {
+    color: var(--font-dark-color);
+    text-decoration: underline;
+}
+
+.darkmode #latandlon-container form {
+    background-color: var(--primary-dark-color);
+    border: 1px solid var(--font-dark-color);
+}
+
+.darkmode #latandlon-container button {
+    color: var(--font-dark-color);
+    background-color: var(--primary-dark-color);
+    border: 1px solid var(--font-dark-color);
+}
+
+.darkmode #latandlon-container button:hover {
+    background-color: var(--font-dark-color);
+    color: var(--primary-dark-color);
+}
+
+.darkmode .weatherCard,
+.darkmode .solarWeatherCard {
+    border: 1px solid var(--font-dark-color);
+    background-color: var(--primary-dark-color);
+    box-shadow: 10px 10px 10px var(--dark-box-shadow);
+}
+
+.darkmode .weatherCard img {
+    border: 1px solid var(--font-dark-color);
+}
+
+.darkmode p.notice {
+    color: var(--dark-accent-two);
+    font-weight: 700;
+}
+
+.darkmode .loading {
+    border: 1px solid var(--font-dark-color);
+    background-color: var(--primary-dark-color);
+    color: var(--font-dark-color);
+}
+
+.darkmode .alert {
+    background-color: var(--primary-dark-color);
+    color: var(--font-dark-color);
+    border: 1px solid var(--font-dark-color);
+}
+
+/* END OF DARKMODE STYLE */
 
 h1,
 h2,
@@ -120,13 +234,16 @@ header button {
     border: none;
     background: transparent;
     cursor: pointer;
-    outline: groove;
-    outline-color: var(--font-color);
+}
+
+header button img {
+    border: 0;
 }
 
 #hamburger {
     font-size: 2rem;
     text-align: center;
+    color: var(--font-color);
 }
 
 #hamburger::before {

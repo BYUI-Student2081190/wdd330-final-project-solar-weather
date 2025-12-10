@@ -129,7 +129,7 @@ export default class SolarWeather {
                     this.visibility = messages[2];
                 }
                 break;
-            default:
+            case 2:
                 // This triggers for 2 and 1
                 if (lat >= 54) {
                     this.visibility = messages[0];
@@ -138,6 +138,20 @@ export default class SolarWeather {
                 } else {
                     this.visibility = messages[2];
                 }
+                break;
+            case 1:
+                // This triggers for 2 and 1
+                if (lat >= 54) {
+                    this.visibility = messages[0];
+                } else if (lat >= 50 && lat < 54) {
+                    this.visibility = messages[1];
+                } else {
+                    this.visibility = messages[2];
+                }
+                break;
+            default:
+                // This triggers for the very rare chance of 0
+                this.visibility = messages[2];
         }
     }
 
