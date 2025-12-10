@@ -1,1 +1,4 @@
-Create this read me to test the repo and see if it works.
+# WDD330 - Final Project - Solar Weather Tracker
+This program was made to track solar weather in a basic way by using the KP Index provided from NOAA and then using weather data from the National Weather Service. This allows people to view if they can see an Aruora in their area by obtaining their latitude and longitude and using it to find if they are able to see it.
+
+This also allows them to see if they have a clear night the next few days, and if they have a clear night that night as well. That way they can plan their next night sky adventure knowing if the skies will be clear for them to look outside.
